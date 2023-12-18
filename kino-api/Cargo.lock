@@ -603,6 +603,8 @@ dependencies = [
  "diesel",
  "dotenvy",
  "rocket",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]
