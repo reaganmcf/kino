@@ -1,1 +1,3 @@
 kino-api/target/
+kino-api/.env
+kino-ui/node_modules/

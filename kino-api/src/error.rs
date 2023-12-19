@@ -1,6 +1,7 @@
 use std::io::Cursor;
 
 use diesel::result::Error as DieselError;
+use reqwest::Error as ReqwestError;
 use rocket::{
     http::{ContentType, Status},
     response::Responder,
@@ -13,6 +14,7 @@ use serde::Serialize;
 pub enum ApiError {
     NotFound(String),
     JsonParseFailure(String),
+    RequestFailure(String),
     DbError(String),
     Unknown,
 }
@@ -29,11 +31,18 @@ impl From<DieselError> for ApiError {
     }
 }
 
+impl From<ReqwestError> for ApiError {
+    fn from(value: ReqwestError) -> Self {
+        Self::RequestFailure(value.to_string())
+    }
+}
+
 impl ApiError {
     fn get_http_status(&self) -> Status {
         match self {
             Self::NotFound(_) => Status::NotFound,
             Self::JsonParseFailure(_) => Status::BadRequest,
+            Self::RequestFailure(_) => Status::InternalServerError,
             Self::DbError(_) => Status::InternalServerError,
             Self::Unknown => Status::BadRequest,
         }

@@ -13,5 +13,7 @@ diesel::table! {
         description -> Nullable<Text>,
         created_at -> Timestamp,
         updated_at -> Timestamp,
+        #[max_length = 255]
+        poster_url -> Nullable<Varchar>,
     }
 }
