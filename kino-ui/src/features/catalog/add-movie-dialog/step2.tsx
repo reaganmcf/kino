@@ -70,6 +70,7 @@ const AddMovieDialogStepTwo: React.FC<AddMovieDialogStepTwoProps> = ({
         title={data.title}
         release_date={data.released}
         poster_url={data.poster}
+        genre={data.genre}
         director={data.director}
         description={data.plot}
       />
@@ -88,7 +89,6 @@ const AddMovieDialogStepTwo: React.FC<AddMovieDialogStepTwoProps> = ({
         </Button>
         <DialogClose asChild>
           <Button
-            type="submit"
             onClick={handleConfirm}
             disabled={!canAddMovie || isLoadingCreateMovie}
           >

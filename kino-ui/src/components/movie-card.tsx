@@ -4,6 +4,7 @@ import { IMovie } from '../apis/kino/types'
 import { Card, CardContent, CardTitle } from './ui/card'
 import { useGetMovieByIdQuery } from '@/apis/kino'
 import { Skeleton } from './ui/skeleton'
+import { Badge } from './ui/badge'
 import { Alert, AlertTitle } from './ui/alert'
 
 type BaseMovieCardProps = Pick<
@@ -21,6 +22,8 @@ const BaseMovieCard: React.FC<BaseMovieCardProps> = ({
 }) => {
   const [imageUrl, setImageUrl] = useState(poster_url ?? '/placeholder.png')
 
+  const genreBadges = (genre || "").split(",").map((s) => s.trim()).map((genre) => <Badge>{genre}</Badge>);
+
   return (
     <Card className="max-w-sm shadow-sm min-w-full break-inside-avoid">
       <img
@@ -30,11 +33,15 @@ const BaseMovieCard: React.FC<BaseMovieCardProps> = ({
       />
       <CardContent className="py-4">
         <CardTitle className="pb-2">{title}</CardTitle>
-        {genre ? <Badge>{genre}</Badge> : null}
-        <div className="pt-2">
+        {genreBadges.length > 0 ? <div className="flex gap-1 items-center">{genreBadges}</div> : null}
+        <div className="pt-4">
           {description ? <p>{description}</p> : null}
           {director ? <p className="text-sm">Director: {director}</p> : null}
-          {release_date ? <p className="text-sm">Release Date: {release_date.toDateString()}</p> : null}
+          {release_date ? (
+            <p className="text-sm">
+              Release Date: {release_date.toDateString()}
+            </p>
+          ) : null}
         </div>
       </CardContent>
     </Card>
@@ -67,5 +74,3 @@ const MovieCard: React.FC<MovieCardProps> = (props) => {
 }
 
 export default MovieCard
-import { Badge } from './ui/badge'
-
