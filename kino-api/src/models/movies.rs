@@ -13,6 +13,7 @@ pub struct Movie {
     pub genre: Option<String>,
     pub director: Option<String>,
     pub description: Option<String>,
+    pub poster_url: Option<String>,
     pub created_at: NaiveDateTime,
     pub updated_at: NaiveDateTime,
 }

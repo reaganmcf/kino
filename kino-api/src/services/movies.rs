@@ -9,7 +9,10 @@ use crate::schema::movies::dsl::*;
 pub fn get_all_movies() -> Result<Vec<Movie>, Error> {
     let conn = &mut establish_connection();
 
-    movies.select(Movie::as_select()).load(conn)
+    let mut result = movies.select(Movie::as_select()).load(conn)?;
+    result.sort_by_key(|m| m.id);
+
+    Ok(result)
 }
 
 pub fn get_movie_by_id(movie_id: i32) -> Result<Option<Movie>, Error> {
