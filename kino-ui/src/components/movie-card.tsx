@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { IMovie } from '../apis/kino/types'
 import { Card, CardContent, CardTitle } from './ui/card'
@@ -8,28 +8,33 @@ import { Alert, AlertTitle } from './ui/alert'
 
 type BaseMovieCardProps = Pick<
   IMovie,
-  'title' | 'director' | 'description' | 'poster_url' | 'release_date'
+  'title' | 'director' | 'description' | 'genre' | 'poster_url' | 'release_date'
 >
 
 const BaseMovieCard: React.FC<BaseMovieCardProps> = ({
   title,
   director,
   description,
+  genre,
   poster_url,
   release_date,
 }) => {
+  const [imageUrl, setImageUrl] = useState(poster_url ?? '/placeholder.png')
+
   return (
-    <Card className="max-w-sm shadow-sm w-fit break-inside-avoid">
+    <Card className="max-w-sm shadow-sm min-w-full break-inside-avoid">
       <img
-        src={poster_url ?? '/placeholder.png'}
+        src={imageUrl}
+        onError={() => setImageUrl('/placeholder.png')}
         className="w-full height-full object-cover overflow-hidden rounded-t-lg"
       />
       <CardContent className="py-4">
         <CardTitle className="pb-2">{title}</CardTitle>
-        <p>{description}</p>
-        <div className="pt-4">
-          <p className="text-sm">Director: {director}</p>
-          <p className="text-sm">Release Date: {release_date.toDateString()}</p>
+        {genre ? <Badge>{genre}</Badge> : null}
+        <div className="pt-2">
+          {description ? <p>{description}</p> : null}
+          {director ? <p className="text-sm">Director: {director}</p> : null}
+          {release_date ? <p className="text-sm">Release Date: {release_date.toDateString()}</p> : null}
         </div>
       </CardContent>
     </Card>
@@ -62,3 +67,5 @@ const MovieCard: React.FC<MovieCardProps> = (props) => {
 }
 
 export default MovieCard
+import { Badge } from './ui/badge'
+

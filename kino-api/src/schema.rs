@@ -5,7 +5,7 @@ diesel::table! {
         id -> Int4,
         #[max_length = 255]
         title -> Varchar,
-        release_date -> Date,
+        release_date -> Nullable<Date>,
         #[max_length = 50]
         genre -> Nullable<Varchar>,
         #[max_length = 100]

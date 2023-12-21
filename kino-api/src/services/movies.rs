@@ -10,7 +10,7 @@ pub fn get_all_movies() -> Result<Vec<Movie>, Error> {
     let conn = &mut establish_connection();
 
     let mut result = movies.select(Movie::as_select()).load(conn)?;
-    result.sort_by_key(|m| m.id);
+    result.sort_by_key(|m| -m.id);
 
     Ok(result)
 }
