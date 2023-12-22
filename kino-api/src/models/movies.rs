@@ -1,9 +1,8 @@
 use chrono::{NaiveDate, NaiveDateTime};
 use diesel::prelude::*;
-use rocket::serde::{Deserialize, Serialize};
+use serde::{Serialize, Deserialize};
 
 #[derive(Queryable, Selectable, Serialize)]
-#[serde(crate = "rocket::serde")]
 #[diesel(table_name = crate::schema::movies)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct Movie {
@@ -19,7 +18,6 @@ pub struct Movie {
 }
 
 #[derive(Insertable, Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
 #[diesel(table_name = crate::schema::movies)]
 pub struct NewMovie<'a> {
     pub title: &'a str,
