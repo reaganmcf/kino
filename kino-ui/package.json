@@ -29,7 +29,6 @@
     "react-dom": "^18.2.0",
     "react-redux": "^9.0.4",
     "react-router-dom": "^6.21.0",
-    "react@4.0.1": "link:xstate/react@4.0.1",
     "sort-by": "^1.2.0",
     "tailwind-merge": "^2.1.0",
     "tailwindcss-animate": "^1.0.7",
